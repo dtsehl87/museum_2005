@@ -44,11 +44,14 @@ class Museum
 
   def lottery_contestants(exhibit)
     contestants = []
-    @patrons.find_all do |patron|
-      if patron.spending_money < exhibit.cost
-        contestants << patron
+    @patrons.each do |patron|
+      patron.interests.each do |interest|
+        if (patron.spending_money < exhibit.cost) && (interest == exhibit.name)
+          contestants << patron
+        end
       end
     end
+    contestants
   end
 
   def draw_lottery_winner(exhibit)
@@ -58,6 +61,15 @@ class Museum
     else
       output = contestants.shuffle.first
       output.name
+    end
+  end
+
+  def announce_lottery_winner(exhibit)
+    contestant = draw_lottery_winner(exhibit)
+    if contestant.nil?
+      "No winners for this lottery"
+    else
+      "#{contestant} has won the #{exhibit.name} exhibit lottery!"
     end
   end
 
