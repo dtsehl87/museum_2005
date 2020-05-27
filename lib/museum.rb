@@ -51,4 +51,14 @@ class Museum
     end
   end
 
+  def draw_lottery_winner(exhibit)
+    contestants = lottery_contestants(exhibit)
+    if contestants.empty?
+      nil
+    else
+      output = contestants.shuffle.first
+      output.name
+    end
+  end
+
 end
