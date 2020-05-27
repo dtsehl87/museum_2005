@@ -42,4 +42,13 @@ class Museum
     end
   end
 
+  def lottery_contestants(exhibit)
+    contestants = []
+    @patrons.find_all do |patron|
+      if patron.spending_money < exhibit.cost
+        contestants << patron
+      end
+    end
+  end
+
 end
