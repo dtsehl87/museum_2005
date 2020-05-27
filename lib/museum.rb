@@ -28,4 +28,18 @@ class Museum
     @patrons << patron
   end
 
+  def patrons_by_exhibit_interest
+    @exhibits.reduce({}) do |acc, exhibit|
+      @patrons.each do |patron|
+        patron.interests.find_all do |interest|
+          acc[exhibit] = [] if acc[exhibit].nil?
+          if interest == exhibit.name
+            acc[exhibit] << patron
+          end
+        end
+      end
+      acc
+    end
+  end
+
 end
